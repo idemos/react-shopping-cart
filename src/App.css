@@ -1,0 +1,148 @@
+html,* {
+  box-sizing: border-box;
+}
+
+body,
+#root {
+  height: 100vh;
+  margin: 0;
+}
+
+.app {
+  display: grid;
+  grid-template-areas: "header" "main" "footer";
+  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+
+header {
+  grid-area: header;
+  border: 1px solid #000;
+  background-color: darkgrey;
+  color: white;
+}
+main {
+  grid-area: main;
+  border: 1px solid #000;
+  display: flex;
+}
+footer {
+  grid-area: footer;
+  border: 1px solid #000;
+  background-color: darkgrey;
+  color: white;
+}
+
+.main {
+  flex: 3 10rem;
+  background-color: yellow;
+}
+.sidebar {
+  flex: 1 2rem;
+  background-color: rosybrown;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.products li {
+  flex: 0 1 24rem;
+  height: 30rem;
+  padding: 1rem;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.product a {
+  display: flex;
+  flex-direction: column;
+}
+
+.product img {
+  max-width: 23rem;
+  max-height: 23rem;
+  align-self: center;
+}
+
+.product-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: sandybrown;
+}
+
+.filters div {
+  flex: 1;
+}
+
+.cartItems {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartItems li {
+  flex: 0 1 24rem;
+  padding: 1rem;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-title{
+  display: flex;
+}
+
+.cart-price{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+
+.cart img {
+  max-width: 3rem;
+  max-height: 3rem;
+}
+
+.form-checkout{
+  margin:0.4rem;
+}
+.form-checkout :is(button,input){
+  padding:0.4rem;
+  width: 100%;
+}
+
+.product-detail{
+  display: flex;
+}
+.product-detail img{
+  max-height: calc(100vh - 150px);
+}
