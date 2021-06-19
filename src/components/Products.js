@@ -54,7 +54,7 @@ export default function Products(props) {
                                     <p>{product.title}</p>
                                     <p>{product.description}</p>
                                     <p>{product.price}</p>
-                                    <p>Taglie disponibili: {product.availableSizes.map((taglia) => <span>{taglia} </span>)}</p>
+                                    <p>Taglie disponibili: {product.availableSizes && product.availableSizes.map((taglia) => <span>{taglia} </span>)}</p>
                                     <button className="button primary" onClick={() => { props.addCart(product); hideModal() }}>Add to Cart</button>
                                 </div>
                             </div>

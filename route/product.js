@@ -21,7 +21,7 @@ const Product = mongoose.model(
         description: String,
         image: String,
         price: Number,
-        availableSizes: {String},
+        availableSizes: [String],
     })
 )
 
@@ -36,6 +36,12 @@ route.post('/', async (req,res) => {
     const products = new Product(req.body);
     const savedProduct = await products.save();
     res.send(savedProduct);
+    //res.send('ok');
+});
+
+route.get('/:id', async (req,res) => {
+    const product = await Product.findById(req.params.id);
+    res.send(product);
     //res.send('ok');
 });
 
