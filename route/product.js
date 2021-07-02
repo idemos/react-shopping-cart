@@ -1,54 +1,53 @@
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const shortid = require("shortid");
+var mysql = require('mysql');
 const express = require('express');
 const route = express.Router();
 
-
-
-
-mongoose.connect("mongodb://localhost:27017/shopping-cart-db",{
-    useNewUrlParser:true,
-    useCreateIndex: true,
-    useUnifiedTopology:true,
+var con = mysql.createConnection({
+    host: "127.0.0.1",
+    user: "root",
+    password: "Malta4ever?",
+    database: "shopping_cart"
 });
-
-const Product = mongoose.model(
-    "products",
-    new mongoose.Schema({
-        _id: {type: String, default: shortid.generate },
-        title: String,
-        description: String,
-        image: String,
-        price: Number,
-        availableSizes: [String],
-    })
-)
 
 // => lo '/' vuol dire /api/courses
 route.get('/', async (req,res) => {
-    const products = await Product.find({});
-    res.send(products);
-    //res.send('ok');
+
+    con.connect(function(err) {
+        //if (err) throw err;
+
+        let query = `SELECT * FROM products  `;
+
+        con.query(query, function (err, result, fields) {
+          if (err) throw err;
+          //console.log(result);
+          res.send(result);
+        });
+      });
 });
 
 route.post('/', async (req,res) => {
-    const products = new Product(req.body);
-    const savedProduct = await products.save();
-    res.send(savedProduct);
-    //res.send('ok');
-});
 
-route.get('/:id', async (req,res) => {
-    const product = await Product.findById(req.params.id);
-    res.send(product);
-    //res.send('ok');
-});
+    con.connect(function(err) {
+        //if (err) throw err;
+        if(!req.params){
+          res.send({error: 'non ci sono dati da inserire'});
+        }
+  
+        let query = `INSERT INTO shopping_cart (`;
+  
+        query+= Object.keys(req.params).join(',');
+        query+= " ) VALUES ('";
+        query+= Object.values(req.params).join("','");
+        query+= "')";
+        
+  
+        con.query(query, function (err, result, fields) {
+          if (err) throw err;
+          //console.log(result);
+          res.send(result);
+        });
+    });
+  });
 
-route.delete('/:id', async (req,res) => {
-    const product = await Product.findByIdAndDelete(req.params.id);
-    res.send(product);
-    //res.send('ok');
-});
 
 module.exports = route;

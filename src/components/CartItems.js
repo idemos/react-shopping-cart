@@ -23,8 +23,6 @@ export default function CartItems(props) {
         <div>
             <Fade left cascade>
                 <ul className="cartItems">
-                    {console.log('cartItems', props.cartItems)}
-                    {console.log('user', user)}
                     {
                         props.cartItems.length > 0 ?
                             props.cartItems.map(cart => (
@@ -35,7 +33,7 @@ export default function CartItems(props) {
                                             <p>{cart.title}</p>
                                         </div>
                                         <div className="cart-price">
-                                            <div>{cart.price}x{cart.count}</div>
+                                            <div>{cart.price}x{cart.qta}</div>
                                             <button className="button primary" onClick={() => props.removeCart(cart.id)}>Remove</button>
                                         </div>
                                     </div>

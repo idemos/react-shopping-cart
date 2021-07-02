@@ -10,13 +10,13 @@ export default function Products(props) {
     // return '';
 
     const showModal = (product) => {
-        console.log("showModal" + product);
+        //console.log("showModal" + product);
         setProduct(product);
 
     }
 
     const hideModal = () => {
-        console.log("hideModal");
+        //console.log("hideModal");
         setProduct(null);
     }
 
@@ -24,8 +24,7 @@ export default function Products(props) {
         <>
             <Fade bottom cascade>
                 <ul className="products">
-                    {console.log('data', props.data)}
-                    {props.data.map(product => (
+                    {props.data && props.data.map(product => (
                         <li key={product.id} data-id={product.id}>
                             <div className="product">
                                 <a href={"#" + product.id} onClick={() => showModal(product)}>

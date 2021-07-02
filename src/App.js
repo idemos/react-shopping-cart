@@ -3,36 +3,36 @@ import Filter from "./components/Filter.js";
 import Products from "./components/Products.js";
 import CartItems from "./components/CartItems.js";
 import data from "./data.json";
-import store from "./store";
-import {Provider} from 'react-redux';
 import "./App.css";
-import * as actions from './store/product';
+//import * as actions from './store/product';
+//import {productListed} from './store/product';
+//import { useDispatch, useSelector } from "react-redux";
 
-export default function App() {
+
+
+const App = (props) =>  {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [size, setSize] = useState("");
   const [msg, setMsg] = useState("");
   const [sort, setSort] = useState("asc");
-  
-  store.subscribe(() => console.log("state:", store.getState()));
 
-  const getProducts = async () => {
+  //const dispatch = useDispatch();
+  //const { list:products } = useSelector(actions.productListed);
+  //const products = useSelector(state => state.entities.products);
+
+  const loadProducts = async () => {
     //const res = await fetch("http://localhost:5000/api/products", { mode: 'no-cors' });
     const res = await fetch("http://localhost:5000/api/products");
     const pro = await res.json();
-    //const res = await fetch("http://localhost:5000/api/products");
-    // console.log("res", res.data);
-    // console.log("data", res.json());
-    // console.log("json res", JSON.parse(res));
 
-
-    store.dispatch(actions.productListed({pro}));
+    //console.log('aproducts=>',pro);
+    //dispatch(actions.productListed({pro}));
     setProducts(pro);
   };
 
   useEffect(() => {
-    getProducts();
+    loadProducts();
   }, []);
 
   function productsSort(e) {
@@ -94,8 +94,10 @@ export default function App() {
     }
   };
 
+  console.log("productslist=>", products);
+
+
   return (
-    <Provider store={store}>
       <div className="app">
         <header></header>
         <main>
@@ -122,6 +124,7 @@ export default function App() {
         </main>
         <footer>footer</footer>
       </div>
-    </Provider>
   );
 }
+
+export default App;

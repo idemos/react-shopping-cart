@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
-import App from './App';
-//import reportWebVitals from './reportWebVitals';
+import AppList from './AppList';
+import store from "./store";
+import {Provider} from 'react-redux';
+
+//store.subscribe(() => console.log("state:", store.getState()));
 
 ReactDOM.render(
   <React.Fragment>
-    <App />
+     <Provider store={store}>
+    <AppList />
+    </Provider>
   </React.Fragment>,
   document.getElementById('root')
 );
