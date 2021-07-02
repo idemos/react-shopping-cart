@@ -75,14 +75,18 @@ const slice = createSlice({
             });
         },
         removed: (carts, action) => {
-            carts.list = carts.list.filter(product => action.payload.id !== product.id);
+            carts.list = carts.list.filter(cart => action.payload.id !== cart.id);
             // const index = carts.list.findIndex(product => action.payload.id !== product.id);
             // carts.list.slice(index,1);
+        },
+        empty: (carts, action) => {
+            //carts.list = [];
+            carts.list = carts.list.filter(cart => action.payload.user_id !== cart.user_id);
         },
     }
 });
 
-export const {added, fetched, removed, sorted} = slice.actions;
+export const {added, fetched, removed, sorted, empty} = slice.actions;
 //export const selectAllcarts = state => state.entities.carts;
 export default slice.reducer;
 
@@ -94,4 +98,58 @@ export const loadCarts = async (dispatch) => {
     console.log('get from api=>', cart);
     dispatch(fetched(cart));
     //setProducts(pro);
+};
+
+export const addCart = async (dispatch, product) => {
+    
+    const cart = {...product, user_id:1, qta:1, product_id:product.id}
+
+    try {
+
+      const res = await fetch("http://localhost:5000/api/carts", { 
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        method: "POST",
+        body: JSON.stringify(cart)
+      });
+
+      const output = await res.json();
+
+      if(!output.error){
+        dispatch(added({cart}));
+        //loadCarts();
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+export const removeCart = async (dispatch, id) => {
+
+    try{
+      const res = await fetch("http://localhost:5000/api/carts/"+id, { method: "DELETE" });
+      const output = await res.json();
+      //setMsg(output);
+      if(!output.error){
+        dispatch(removed({id}));
+      }
+    }catch (err) {
+      console.error(err);
+    }
+};
+
+export const emptyCart = async (dispatch, user_id) => {
+
+    try{
+      const res = await fetch("http://localhost:5000/api/carts/all/"+user_id, { method: "DELETE" });
+      const output = await res.json();
+      //setMsg(output);
+      if(!output.error){
+        dispatch(empty({user_id}));
+      }
+    }catch (err) {
+      console.error(err);
+    }
 };

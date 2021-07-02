@@ -18,7 +18,7 @@ route.get('/', async (req,res) => {
         //if (err) throw err;
 
         let query = `SELECT 
-            p.*,sc.qta as qta,sc.user_id as user_id,p.id as product_id  FROM shopping_cart sc INNER JOIN products p ON (p.id=sc.product_id) INNER JOIN users u ON (u.id=sc.user_id)
+        p.title,p.description,p.image,p.price,sc.id,sc.qta as qta,sc.user_id as user_id,p.id as product_id  FROM shopping_cart sc INNER JOIN products p ON (p.id=sc.product_id) INNER JOIN users u ON (u.id=sc.user_id)
             `;
 
         con.query(query, function (err, result, fields) {
@@ -27,6 +27,24 @@ route.get('/', async (req,res) => {
           res.send(result);
         });
       });
+});
+
+route.delete('/all/:user_id', async (req,res) => {
+
+  con.connect(function(err) {
+      //if (err) throw err;
+      if(isNaN(req.params.user_id)){
+        res.send({error: 'non è un user_id valido'});
+      }
+
+      let query = `DELETE FROM shopping_cart WHERE user_id=${req.params.user_id}`;
+
+      con.query(query, function (err, result, fields) {
+        if (err) throw err;
+        //console.log(result);
+        res.send(result);
+      });
+  });
 });
 
 route.delete('/:id', async (req,res) => {

@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Fade from 'react-reveal/Fade'
 
 export default function CartItems(props) {
+
+    const dispatch = useDispatch();
 
     const [visibleCheckout, setVisibleCheckout] = useState(false);
     const [user, setUser] = useState({});
@@ -34,7 +37,7 @@ export default function CartItems(props) {
                                         </div>
                                         <div className="cart-price">
                                             <div>{cart.price}x{cart.qta}</div>
-                                            <button className="button primary" onClick={() => props.removeCart(cart.id)}>Remove</button>
+                                            <button className="button primary" onClick={() => props.removeCart(dispatch,cart.id)}>Remove</button>
                                         </div>
                                     </div>
                                 </li>
@@ -54,6 +57,7 @@ export default function CartItems(props) {
                                 Price: {props.cartItems.reduce((a, c) => a + c.price * c.count, 0)}<br />
                                 Total Item: {props.cartItems.reduce((a, c) => a + c.count, 0)}<br />
                                 <button type="button" onClick={() => setVisibleCheckout(true)}>Proceed</button>
+                                <button type="button" onClick={() => (window.confirm('confermi?') && props.emptyCart(dispatch, 1))}>Empty Cart</button>
                             </li>
                         )
                     }

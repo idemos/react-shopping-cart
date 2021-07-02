@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import Fade from 'react-reveal/Fade';
 import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
+import { useDispatch } from 'react-redux';
 
 export default function Products(props) {
+
+    const dispatch = useDispatch();
 
     const [product, setProduct] = useState(null);
     // console.log(data);
@@ -33,7 +36,7 @@ export default function Products(props) {
                                 </a>
                                 <div className="product-price">
                                     <div>{product.price}</div>
-                                    <button className="button primary" onClick={() => props.addCart(product)}>Add to Cart</button>
+                                    <button className="button primary" onClick={() => props.addCart(dispatch, product)}>Add to Cart</button>
                                 </div>
                             </div>
                         </li>
@@ -54,7 +57,7 @@ export default function Products(props) {
                                     <p>{product.description}</p>
                                     <p>{product.price}</p>
                                     <p>Taglie disponibili: {product.availableSizes && product.availableSizes.map((taglia) => <span>{taglia} </span>)}</p>
-                                    <button className="button primary" onClick={() => { props.addCart(product); hideModal() }}>Add to Cart</button>
+                                    <button className="button primary" onClick={() => { props.addCart(dispatch, product); hideModal() }}>Add to Cart</button>
                                 </div>
                             </div>
                         </></Zoom>
