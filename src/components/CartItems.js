@@ -42,9 +42,6 @@ export default function CartItems(props) {
                                     </div>
                                 </li>
                             ))
-
-
-
                             : <li>Cart empty</li>
                     }
                     {
@@ -54,8 +51,8 @@ export default function CartItems(props) {
                         */
                         props.cartItems.length && (
                             <li className="cart-resume">
-                                Price: {props.cartItems.reduce((a, c) => a + c.price * c.count, 0)}<br />
-                                Total Item: {props.cartItems.reduce((a, c) => a + c.count, 0)}<br />
+                                Price: {props.cartItems.reduce((a, c) => a + c.price * c.qta, 0)}<br />
+                                Total Item: {props.cartItems.reduce((a, c) => a + c.qta, 0)}<br />
                                 <button type="button" onClick={() => setVisibleCheckout(true)}>Proceed</button>
                                 <button type="button" onClick={() => (window.confirm('confermi?') && props.emptyCart(dispatch, 1))}>Empty Cart</button>
                             </li>
