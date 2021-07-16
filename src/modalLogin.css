@@ -1,0 +1,13 @@
+.modalLogin{
+  top:10%;
+  height: 300px;
+  width:550px;
+  margin:0 auto;
+}
+
+
+:-webkit-any(.login-username, .login-password) input{
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+}

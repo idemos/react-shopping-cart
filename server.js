@@ -1,5 +1,6 @@
 const products = require('./route/product');
 const carts = require('./route/shoppingCart');
+const auth = require('./route/auth');
 // const bodyParser = require("body-parser");
 const express = require("express");
 var cors = require('cors');
@@ -17,6 +18,7 @@ app.use(express.urlencoded({extended:true}));
 // per tutte le request che iniziano per /api/products richiama il router/route products
 app.use('/api/products', products);
 app.use('/api/carts', carts);
+app.use('/api/auth', auth);
 
 const port =  process.env.PORT || 5000
 app.listen(port,() => console.log('sono in ascolto sulla porta: ' + port));
