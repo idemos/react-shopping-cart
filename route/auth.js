@@ -1,3 +1,4 @@
+const Joi = require('joi');
 var mysql = require('mysql');
 const express = require('express');
 const route = express.Router();
@@ -9,14 +10,25 @@ var con = mysql.createConnection({
     database: "shopping_cart"
 });
 
+/**
+const validateCart = (cart) => {
+  const schema = Joi.object().keys({ 
+    name: Joi.string().alphanum().min(3).max(30).required(),
+    birthyear: Joi.number().integer().min(1970).max(2013), 
+  }); 
+}
+*/
+
 route.post('/', async (req,res) => {
 
     con.connect(function(err) {
         //if (err) throw err;
-        if(!req.params){
+        if(!req.body){
           res.send({error: 'non ci sono dati da inserire'});
         }
-  
+
+        // const {error} = validateCart(req.body);
+
         let query = `SELECT * FROM user WHERE email=':EMAIL' AND password=':PASS'`;
         query = query.replace(/:EMAIL/, req.body.email).replace(/:PASS/, req.body.password);
         

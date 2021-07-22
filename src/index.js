@@ -9,8 +9,8 @@ import {Provider} from 'react-redux';
 
 ReactDOM.render(
   <React.Fragment>
-     <Provider store={store}>
-    <AppList />
+    <Provider store={store}>
+      <AppList />
     </Provider>
   </React.Fragment>,
   document.getElementById('root')

@@ -6,8 +6,8 @@ import "./App.css";
 import './modalLogin.css'
 
 import {loadProducts} from './store/product';
-import {loadCarts, addCart, removeCart, emptyCart} from './store/cart';
-import {attemptLogin} from './store/auth';
+import * as Cart from './crud/cart';
+import * as Auth from './crud/auth';
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -40,7 +40,7 @@ const App = (props) =>  {
 
   function loadData() {
     loadProducts(dispatch);
-    loadCarts(dispatch);
+    Cart.load(dispatch);
     loadAuth(false);
     console.log("auth",auth);
   }
@@ -64,9 +64,8 @@ const App = (props) =>  {
   
   const handlerLoginSubmit = () => {
     console.log(login);
-    attemptLogin(dispatch, login);
-    //attemptLogin(dispatch(login));
-    //alert("checkout inviato con successo");
+    Auth.login(dispatch, login);
+    //Auth.login(dispatch(login));
   };
 
   const showModal = (authenticated) => {
@@ -89,14 +88,14 @@ const hideModal = () => {
         <header></header>
         <main>
           <div className="main">
-            <Products data={products} addCart={addCart} />
+            <Products data={products} addCart={Cart.add} />
           </div>
           <div className="sidebar">
             {msg}
             <CartItems
               cartItems={cartItems}
-              removeCart={removeCart}
-              emptyCart={emptyCart}
+              removeCart={Cart.remove}
+              emptyCart={Cart.empty}
               checkout={checkout}
             />
           </div>

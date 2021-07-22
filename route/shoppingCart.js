@@ -1,5 +1,7 @@
 var mysql = require('mysql');
 const express = require('express');
+const middleware = require('../middleware');
+const schema = require('../schema');
 const route = express.Router();
 
 
@@ -90,13 +92,16 @@ route.put('/:id', async (req,res) => {
   });
 });
 
-route.post('/', async (req,res) => {
+
+route.post('/', middleware(schema.cartItem, 'body'), (req,res) => {
 
   con.connect(function(err) {
-      //if (err) throw err;
-      if(!req.body){
+    
+    //if (err) throw err;
+    
+    if(!req.body){
         res.send({error: 'non ci sono dati da inserire'});
-      }
+    }
 
       //console.log("body",req.body);
 
@@ -120,7 +125,6 @@ route.post('/', async (req,res) => {
       //console.log(query);
       //res.send(query);
       
-
       con.query(query, function (err, result, fields) {
         if (err) throw err;
         //console.log(result);

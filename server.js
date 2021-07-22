@@ -1,7 +1,6 @@
 const products = require('./route/product');
 const carts = require('./route/shoppingCart');
 const auth = require('./route/auth');
-// const bodyParser = require("body-parser");
 const express = require("express");
 var cors = require('cors');
 
