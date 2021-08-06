@@ -21,9 +21,10 @@ const App = (props) =>  {
   const dispatch = useDispatch();
   const [msg, setMsg] = useState("");
   const [showAuth, setShowAuth] = useState(false);
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(localStorage.getItem('user_token') || null);
   const products = useSelector((state) => state.entities.products.list);
   const cartItems = useSelector((state) => state.entities.carts.list);
+  const error = useSelector((state) => state.error);
   //const [cartItems, setCartItems] = useState([]);
 
   const [login, setLogin] = useState({});
@@ -41,13 +42,13 @@ const App = (props) =>  {
   function loadData() {
     loadProducts(dispatch);
     Cart.load(dispatch);
-    loadAuth(false);
+    loadAuth();
     console.log("auth",auth);
   }
 
-  const loadAuth = (authenticated) => {
+  const loadAuth = () => {
     // vedo se l'utente è loggato attraverso lo storage
-    setShowAuth(authenticated);
+    setShowAuth(auth !== null);
     //setAuth(!authenticated);
   }
 
@@ -106,7 +107,9 @@ const hideModal = () => {
           !auth && (
               <Modal isOpen={showAuth} onRequestClose={() => hideModal()} className="modalLogin" ariaHideApp={false}>
                   <Zoom><>
+
                       <button className="close-modal" type="button" onClick={() => hideModal()}>x</button>
+                      { error.is && (<div className="danger">{error.msg}</div>)}
                       <div className="login">
                         <div className="login-username">
                           <input type="email" name="email" required placeholder="your best email" onChange={handlerLogin} />

@@ -146,3 +146,9 @@ footer {
 .product-detail img{
   max-height: calc(100vh - 150px);
 }
+
+.danger{
+  background-color: red;
+  color:white;
+  text-align: center;
+}

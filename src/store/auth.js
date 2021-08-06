@@ -18,7 +18,7 @@ const slice = createSlice({
             auth.isSuccess = false;
             auth.isError = true;
         },
-        success: (auth, action) => {
+        login: (auth, action) => {
             auth.user = action.payload;
             auth.isSuccess = true;
             auth.isError = false;
