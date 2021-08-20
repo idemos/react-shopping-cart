@@ -95,5 +95,5 @@ const slice = createSlice({
 });
 
 export const {added, fetched, removed, sorted, empty, errored} = slice.actions;
-//export const selectAllcarts = state => state.entities.carts;
+// export const selectCart = state => state.entities.carts;
 export default slice.reducer;

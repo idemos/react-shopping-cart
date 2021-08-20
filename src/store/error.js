@@ -21,13 +21,13 @@ const { setError } = slice.actions;
 
 export default slice.reducer;
 
-//export const attemptLogin = ({ email, password }) => async dispatch => {
-export const setErrorTrue = async (dispatch, msg) => {
+export const setErrorTrue = (msg) => async dispatch => {
+//export const setErrorTrue = async (dispatch, msg) => {
     console.log("settato errore true");
     dispatch(setError({is:true, msg}));   
 }
 
-export const setErrorFalse = async (dispatch) => {
+export const setErrorFalse = () => async (dispatch) => {
     console.log("settato errore false");
     dispatch(setError({is:false, msg:''}));   
 }

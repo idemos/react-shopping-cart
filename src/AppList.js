@@ -40,16 +40,15 @@ const App = (props) =>  {
 
 
   function loadData() {
-    loadProducts(dispatch);
-    Cart.load(dispatch);
-    loadAuth();
-    console.log("auth",auth);
-  }
+//    loadProducts(dispatch);
+//    Cart.load(dispatch);
 
-  const loadAuth = () => {
+    dispatch(loadProducts);
+    dispatch(Cart.load);
+    
     // vedo se l'utente è loggato attraverso lo storage
     setShowAuth(auth !== null);
-    //setAuth(!authenticated);
+    console.log("auth",auth);
   }
 
 
@@ -65,8 +64,8 @@ const App = (props) =>  {
   
   const handlerLoginSubmit = () => {
     console.log(login);
-    Auth.login(dispatch, login);
-    //Auth.login(dispatch(login));
+    //Auth.login(dispatch, login);
+    dispatch(Auth.login(login));
   };
 
   const showModal = (authenticated) => {

@@ -59,12 +59,13 @@ export const {added, fetched, removed, sorted} = slice.actions;
 //export const selectAllProducts = state => state.entities.products;
 export default slice.reducer;
 
+
 export const loadProducts = async (dispatch) => {
     //const res = await fetch("http://localhost:5000/api/products", { mode: 'no-cors' });
     const res = await fetch("http://localhost:5000/api/products");
     const pro = await res.json();
 
-    //console.log('get from api=>',pro);
+
     dispatch(fetched(pro));
     //setProducts(pro);
 };

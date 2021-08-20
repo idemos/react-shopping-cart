@@ -2,10 +2,14 @@
 import * as Auth from '../store/auth';
 import {setErrorTrue, setErrorFalse} from '../store/error';
 import jwtDecode from "jwt-decode";
+const fetch = require("node-fetch");
 
 
+//const login = async (dispatch, {email,password}) => {
+const login = ({email,password}) => async (dispatch) => {
 
-const login = async (dispatch, {email,password}) => {
+//return false;
+//const login = ({email,password}) => async (dispatch)  => {
 
   console.log("email", email);
   console.log("password", password);
@@ -76,11 +80,13 @@ const login = async (dispatch, {email,password}) => {
     setErrorTrue(dispatch, 'Si sono verificati degli errori nella LOGIN');
     alert('Si sono verificati degli errori nella LOGIN');
     console.error(error.message);
+    return false;
 
   }
 }
 
 const logout = () => async dispatch => {
+// const logout = async (dispatch) => {
   
     try {
         const res = await fetch("http://localhost:5000/api/auth/logout");

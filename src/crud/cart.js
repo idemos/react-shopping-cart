@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import * as Cart from '../store/cart';
+// import { selectCart } from '../store/cart';
 import {setErrorTrue, setErrorFalse} from '../store/error';
 
 
@@ -21,7 +22,8 @@ const productSchema = yup.object({
   price: yup.number().positive().required(),
 });
 
-const add = async (dispatch, product) => {
+const add = (product) => async (dispatch) => {
+// const add = async (dispatch, product) => {
     
     //const cart = {...product, user_id:1, qta:1, product_id:product.id}
     //const cart_state = useSelector((state) => state.entities.cart);
@@ -79,7 +81,8 @@ const add = async (dispatch, product) => {
     }
 }
 
-const remove = async (dispatch, id) => {
+const remove = (id) => async (dispatch) => {
+// const remove = async (dispatch, id) => {
 
     try{
       const res = await fetch("http://localhost:5000/api/carts/"+id, { method: "DELETE" });
@@ -95,8 +98,8 @@ const remove = async (dispatch, id) => {
     }
 };
 
-
-const empty = async (dispatch, user_id) => {
+const empty = (user_id) => async (dispatch) => {
+// const empty = async (dispatch, user_id) => {
 
     try{
       const res = await fetch("http://localhost:5000/api/carts/all/"+user_id, { method: "DELETE" });
